@@ -1,0 +1,24 @@
+classdef EdpTrasportoD2
+
+    methods
+        
+        function [U,tf] = laxF2(obj)
+            lambda = dt/dx;
+            for n = 1:Nt
+                u(2:end-1,2:end-1) = 0.25*(u(3:end,2:end-1) - U(1:end-2,2:end-1) + u(2:end-1,3:end) - u(2:end-1,1:end-2)) - 0.5*lambda*a(1)*(u(3:end,2:end-1) - u(1:end-2,2:end-1)) - 0.5*lambda*a(2)*(u(2:end-1,3:end) - u(2:end-1,1:end-2));
+                u = obj.bound(u);
+            end
+            tf = Nt/dt;
+            U = u;
+        end
+
+    end
+
+    methods(Static)
+        function u = bound()
+           
+        end
+    end
+
+end
+

@@ -10,14 +10,14 @@ T.velocity = 0.5;
 a = T.velocity;
 T.amplitude = 0.5;
 
-dx = 0.01;
+dx = 0.1;
 [U,u0,x,dt,tf] = T.RigidTrans_d1(dx,3,4);
 
 Us = sol(x - a*(tf));
 err = norm(Us' - U(end,1:end-1),inf);
 
 
-dx1 = 0.1*dx;
+dx1 = 0.5*dx;
 [U1,u0,x,dt1,tf1] = T.RigidTrans_d1(dx1,3,4);
 
 Us = sol(x - a*(tf1));
