@@ -1,0 +1,55 @@
+clc
+clear 
+close all
+
+dx = 0.1;
+[u,X,Y,sol,eps,it] = fivePoints(dx);
+err = norm(u - sol(X,Y),inf) + eps;
+
+dx1 = 0.5*dx;
+[u1,X1,Y1,sol1,eps1,it1] = fivePoints(dx1);
+err1 = norm(u1 - sol(X1,Y1),inf) + eps1;
+
+log2(err/err1)
+
+f1 = figure(Name="sol");
+surf(X1,Y1,sol1(X1,Y1));
+
+f2 = figure(Name="approx");
+surf(X1,Y1,u1);
+
+function [u,X,Y,sol,eps,it] = fivePoints(dx)
+
+    N = floor(1/dx);
+    x = linspace(0,1,N);
+    [X,Y] = ndgrid(x);
+    
+    f = @(x,y) (32*pi*pi*cos(4*pi*x).*sin(4*pi*y));
+    phi = @(x) (sin(4*pi*x));
+    sol = @(x,y) (cos(4*pi*x).*sin(4*pi*y));
+    
+    S = sol(X,Y);
+    F = f(X,Y);
+    u = zeros(N,N);
+    
+    u(1,:) = phi(x);
+    u(:,1) = zeros(N,1);
+    u(end,:) = phi(x);
+    u(:,end) = zeros(N,1);
+    
+    it_max = 1e6;
+    tol = 1e-8;
+    it = 0;
+    eps = 1;
+    while eps > tol && it < it_max
+        prev = u;
+        for i = 2:N-1
+            for j = 2:N-1
+                u(i,j) = 0.25*(dx*dx*F(i,j) + u(i+1,j) + u(i-1,j) + u(i,j+1) + u(i,j-1));
+            end
+        end
+        it = it + 1;
+        eps = norm(u - prev,inf);
+    end
+
+end

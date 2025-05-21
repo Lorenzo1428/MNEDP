@@ -132,7 +132,7 @@ classdef EdpTrasportoD1
     methods(Static)
 
         function dt = Cfl(dx,a)
-            dt = 0.6*dx/norm(a,inf);
+            dt = 0.9*dx/norm(a,inf);
         end
 
         function u = BoundCond(u,t,a,idInit,isPer)
