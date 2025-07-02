@@ -2,19 +2,15 @@ clc
 clear 
 close all
 
-dx = 0.05;
+dx = 0.01;
 [u,X,Y,sol,eps,it] = fivePoints(dx);
 err = max(max(abs(u - sol(X,Y))));
 
 dx1 = 0.5*dx;
 [u1,X1,Y1,sol1,eps1,it1] = fivePoints(dx1);
-<<<<<<< HEAD
-err1 = norm(u1 - sol1(X1,Y1),inf) + eps1;
-S = sol(X1,Y1);
-=======
-err1 = max(max(abs(u1 - sol(X1,Y1))));
 
->>>>>>> 5f3505a (1.6)
+S = sol(X1,Y1);
+err1 = max(max(abs(u1 - sol(X1,Y1))));
 log2(err/err1)
 
 f1 = figure(Name="sol");
