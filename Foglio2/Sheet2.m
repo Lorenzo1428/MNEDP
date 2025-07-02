@@ -4,12 +4,17 @@ close all
 
 dx = 0.05;
 [u,X,Y,sol,eps,it] = fivePoints(dx);
-err = norm(u - sol(X,Y),inf) + eps;
+err = max(max(abs(u - sol(X,Y))));
 
 dx1 = 0.5*dx;
 [u1,X1,Y1,sol1,eps1,it1] = fivePoints(dx1);
+<<<<<<< HEAD
 err1 = norm(u1 - sol1(X1,Y1),inf) + eps1;
 S = sol(X1,Y1);
+=======
+err1 = max(max(abs(u1 - sol(X1,Y1))));
+
+>>>>>>> 5f3505a (1.6)
 log2(err/err1)
 
 f1 = figure(Name="sol");
@@ -20,8 +25,8 @@ surf(X1,Y1,u1);
 
 function [u,X,Y,sol,eps,it] = fivePoints(dx)
 
-    N = floor(1/dx);
-    x = linspace(0,1,N);
+    x = 0:dx:1;
+    N = length(x);
     [X,Y] = ndgrid(x);
     
     f = @(x,y) (32*pi*pi*cos(4*pi*x).*sin(4*pi*y));
@@ -49,7 +54,7 @@ function [u,X,Y,sol,eps,it] = fivePoints(dx)
             end
         end
         it = it + 1;
-        eps = norm(u - prev,inf);
+        eps = max(max(abs(u - prev)));
     end
 
 end

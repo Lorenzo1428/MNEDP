@@ -1,0 +1,50 @@
+clc
+clear 
+close all
+
+%% dati iniziali 
+dx = 0.001;
+a = 0;
+b = 1;
+ua = 0;
+ub = 1;
+epsi = 0.0001;
+sigma = 1;
+mu = sqrt(sigma/epsi);
+
+r = @(x) ua*(b - x)/(b-a) + ub*(x - a)/(b-a);
+sol = @(x) (exp(mu*x) - exp(-mu*x))/(exp(mu) - exp(-mu));
+
+%% eps = ...
+
+
+
+%% ordine in L2
+% dx
+x = a:dx:b;
+N = length(x);
+f = -dx*(sigma*r(x'));
+U = gal1(f,N,dx,epsi,sigma);
+U = U + r(x');
+err = norm(U - sol(x'), inf);
+
+% 0.5dx
+dx = 0.5*dx;
+x = a:dx:b;
+N = length(x);
+f = -dx*(sigma*r(x'));
+U = gal1(f,N,dx,epsi,sigma);
+U = U + r(x');
+err1 = norm(U - sol(x'), inf);
+
+% ordine
+p = log2(err/err1);
+
+
+%% galerkin dim 1
+function U = gal1(f,N,dx,epsi,sigma)
+    A1 = (epsi/dx)*(2*eye(N) - diag(ones(1,N-1),-1) - diag(ones(1,N-1),1));
+    A2 = sigma*dx*((2/3)*eye(N) + (1/6)*diag(ones(1,N-1),-1) + (1/6)*diag(ones(1,N-1),1));
+    A = A1 + A2;
+    U = A\f;
+end
