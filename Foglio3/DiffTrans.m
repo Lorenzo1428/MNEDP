@@ -4,7 +4,7 @@ close all
 
 %% griglia unif
 
-epsi = 0.01;
+epsi = 1;
 b = 1;
 mu = b/epsi;
 sol = @(x) (1 - exp(mu*x))./(1 - exp(mu));

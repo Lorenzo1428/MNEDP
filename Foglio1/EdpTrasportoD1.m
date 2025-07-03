@@ -98,6 +98,9 @@ classdef EdpTrasportoD1
                 U(n,:) = u;
                 n = n+1;
                 t = t + dt;
+                plot(u);
+                pause(0.1);
+                drawnow;
             end
         end
 
