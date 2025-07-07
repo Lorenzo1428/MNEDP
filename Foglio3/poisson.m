@@ -44,7 +44,7 @@ p2 = log2(err2_dx/err2_dxhalf);
 
 %% elementi quadratici
 
-dx = 0.01;
+dx = 0.005;
 x = 0:dx:1;
 N = length(x);
 f = zeros(N-2,1);
