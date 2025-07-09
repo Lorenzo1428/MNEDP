@@ -7,7 +7,7 @@ sol = @(x) sin(0.5*pi*x);
 
 %% uniforme lineare
 
-dx = 0.01;
+dx = 0.001;
 x = 0:dx:1;
 N = length(x);
 f = F(x')*dx;
@@ -44,7 +44,7 @@ p2 = log2(err2_dx/err2_dxhalf);
 
 %% elementi quadratici
 
-dx = 0.001;
+dx = 0.005;
 x = 0:dx:1;
 N = length(x);
 f = zeros(N-2,1);
@@ -60,7 +60,6 @@ U = [0; Aq\f; 0] + x';
 err2_dxq = sqrt(dx*sum((U - sol(x')).^2));
 plot(x,U,x,sol(x'));
 legend("approx","sol");
-cond(A1)
 
 %% ordine quadratico 
 
