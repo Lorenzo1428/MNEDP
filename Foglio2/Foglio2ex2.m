@@ -2,12 +2,15 @@ clc
 clear
 close all
 
-epsi = 0.1;
+prompt_epsi = "Scegliere eps: " ;
+epsi = input(prompt_epsi);
 
 vel1 = @(x,y) 2*y.*(1 - x.^2);
 vel2 = @(x,y) -2*x.*(1 - y.^2);
 
-id = 3;
+prompt_prob = "1. Condizioni di Dir 2. Condizioni miste 3. Condizioni miste 2 " + newline + "Scegli il problema: ";
+id = input(prompt_prob);
+
 switch id
     case 1
         phi = @(x,y) 1.*(y == -1);
@@ -28,12 +31,17 @@ a1 = vel1(X,Y);
 a2 = vel2(X,Y);
 neu = csi(X,Y);
 U = phi(X,Y);
-U1 = DiffTransMix(dx,N,neu,epsi,a1,a2);
-% U1 = reshape(U1,N-2,N-2);
-% U(2:end-1,2:end-1) = U1;
-U1 = reshape(U1,N-2,N-1);
-U(2:end,2:end-1) = U1';
+if id == 1
+    U1 = DiffTransDir(dx,N,epsi,a1,a2);
+    U1 = reshape(U1,N-2,N-2);
+    U(2:end-1,2:end-1) = U1;
+else
+    U1 = DiffTransMix(dx,N,neu,epsi,a1,a2);
+    U1 = reshape(U1,N-2,N-1);
+    U(2:end,2:end-1) = U1';
+end
 surf(X,Y,U)
+title("Soluzione approssimata");
 
 
 
