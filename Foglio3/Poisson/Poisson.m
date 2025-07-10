@@ -62,7 +62,7 @@ legend("Soluzione approssimata","Soluzione esatta");
 
 
 %% ordine uniforme lineare
-M = 8;
+M = 7;
 
 dx1 = zeros(M,1);
 p = zeros(M,1);

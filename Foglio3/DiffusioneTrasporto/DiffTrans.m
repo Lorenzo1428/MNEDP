@@ -4,7 +4,7 @@ close all
 
 %% Diffusione Trasporto
 
-epsi = 10;
+epsi = 0.1;
 b = 1;
 mu = b/epsi;
 sol = @(x) (exp(mu*x)-1)./(exp(mu)-1);

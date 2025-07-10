@@ -3,23 +3,21 @@ clear
 close all
 E = EdpTrasporto2D;
 
-idMethod = 1;
+idMethod = 3;
 idProb = 4;
 
-dx = 0.01;
-T = 4; 
-l = 1;
+dx = 0.005;
+T = 1; 
+l = 0.3;
 
 [u,dx,X,Y,x,a1,a2] = E.InitCond(dx,idProb);
-
 [U,dt,X,Y] = E.transp2D(u,X,Y,x,dx,a1,a2,T,l,idProb,idMethod);
-%f1 = figure;
 h = surf(X,Y,U(2:end-1,2:end-1));
 set(h,'edgecolor','none');
-colormap hot
+colormap jet
 zlim([0,1]);
 
-% 
+ 
 % sol = sin(X-T*a1(1:end-1,1:end-1)).*cos(Y-T*a2(1:end-1,1:end-1));
 % f2 = figure;
 % surf(X,Y,sol)
@@ -27,7 +25,7 @@ zlim([0,1]);
 % err = abs(U(1:end-1,1:end-1) - sol);
 % f3 = figure; 
 % mesh(err);
-% 
+
 % %errinf = max(err,[],"all");
 % errinf = sqrt(dx*dx*(sum(err.^2,"all")));
 % 
