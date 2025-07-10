@@ -110,7 +110,7 @@ for i = 1:M
 end
 table(hmax1,err1N,pN)
 
-f3 = figure;
+f2 = figure;
 semilogy(1:M,err1,1:M,err1Up,1:M,err1N)
 title("Andamento errore in L2");
 legend("Galerkin","Stabilizazzione Upwind","Galerkin non uniforme");
